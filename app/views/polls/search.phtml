@@ -1,0 +1,63 @@
+<?php
+/**
+ * @var \Phalcon\Mvc\View\Engine\Php $this
+ */
+?>
+
+<div class="row">
+    <nav>
+        <ul class="pager">
+            <li class="previous"><?php echo $this->tag->linkTo(["polls/index", "Go Back"]); ?></li>
+            <li class="next"><?php echo $this->tag->linkTo(["polls/new", "Create "]); ?></li>
+        </ul>
+    </nav>
+</div>
+
+<div class="page-header">
+    <h1>Search result</h1>
+</div>
+
+<?php echo $this->getContent(); ?>
+
+<div class="row">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Id</th>
+            <th>Question</th>
+
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($page->getItems() as $poll): ?>
+            <tr>
+                <td><?php echo $poll['id'] ?></td>
+            <td><?php echo $poll['question'] ?></td>
+
+                <td><?php echo $this->tag->linkTo(["polls/edit/" . $poll['id'], "Edit"]); ?></td>
+                <td><?php echo $this->tag->linkTo(["polls/delete/" . $poll['id'], "Delete"]); ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+
+<div class="row">
+    <div class="col-sm-1">
+        <p class="pagination" style="line-height: 1.42857;padding: 6px 12px;">
+            <?php echo $page->getCurrent(), "/", $page->getTotalItems() ?>
+        </p>
+    </div>
+    <div class="col-sm-11">
+        <nav>
+            <ul class="pagination">
+                <li><?php echo $this->tag->linkTo(["polls/search", "First", 'class' => 'page-link', 'id' => 'first']) ?></li>
+                <li><?php echo $this->tag->linkTo(["polls/search?page=" . $page->getPrevious(), "Previous", 'class' => 'page-link', 'id' => 'previous']) ?></li>
+                <li><?php echo $this->tag->linkTo(["polls/search?page=" . $page->getNext(), "Next", 'class' => 'page-link', 'id' => 'next']) ?></li>
+                <li><?php echo $this->tag->linkTo(["polls/search?page=" . $page->getLast(), "Last", 'class' => 'page-link', 'id' => 'last']) ?></li>
+            </ul>
+        </nav>
+    </div>
+</div>

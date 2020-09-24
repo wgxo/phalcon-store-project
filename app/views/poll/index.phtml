@@ -1,0 +1,21 @@
+<?php
+/**
+ * @var \Phalcon\Mvc\View\Engine\Php $this
+ */
+?>
+
+<div class="page-header">
+	<h1>Polls</h1>
+</div>
+
+<p>This is the list of polls</p>
+
+<?php
+
+/** @var Polls $poll */
+foreach ($this->view->polls as $poll) {
+?>
+    <p><?php echo $poll->id; ?><br>
+    <?php echo $poll->question; ?></p>
+<?php
+}
