@@ -1,3 +1,5 @@
 /cache/
 /config/development/
 .idea
+vendor/
+composer.lock
