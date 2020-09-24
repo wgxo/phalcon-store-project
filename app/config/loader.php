@@ -10,4 +10,13 @@ $loader->registerDirs(
         $config->application->controllersDir,
         $config->application->modelsDir
     ]
-)->register();
+);
+
+//$loader->registerNamespaces(
+//    [
+//        'Store\Controllers' => $config->application->controllersDir,
+//        'Store\Models' => $config->application->modelsDir,
+//    ]
+//);
+
+$loader->register();

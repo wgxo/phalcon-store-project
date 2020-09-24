@@ -6,7 +6,7 @@ class IndexController extends ControllerBase
 
     public function indexAction()
     {
-
+        $this->view->polls = Polls::find();
     }
 
 }
