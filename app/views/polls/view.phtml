@@ -1,0 +1,33 @@
+<?php
+/**
+ * @var Polls $poll
+ * @var Php $this
+ */
+
+use Phalcon\Mvc\View\Engine\Php;
+
+(new \Phalcon\Debug())->listen();
+?>
+
+<div class="row">
+	<nav>
+		<ul class="pager">
+			<li class="previous"><?php echo $this->tag::linkTo(["/polls", "Back"]) ?></li>
+		</ul>
+	</nav>
+</div>
+
+<div class="page-header">
+	<h1>View poll</h1>
+</div>
+
+<?php echo $this->getContent(); ?>
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4"><?php echo $poll->question; ?></h1>
+        <p class="lead">Number of votes: 0</p>
+        <p><?php echo $this->tag::linkTo(["/polls/edit/" . $poll->id, "Edit"]); ?> |
+            <?php echo $this->tag::linkTo(["/polls/delete/" . $poll->id, "Delete"]); ?></p>
+    </div>
+</div>

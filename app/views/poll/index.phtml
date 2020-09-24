@@ -10,12 +10,13 @@
 
 <p>This is the list of polls</p>
 
+<ul>
 <?php
-
 /** @var Polls $poll */
 foreach ($this->view->polls as $poll) {
 ?>
-    <p><?php echo $poll->id; ?><br>
-    <?php echo $poll->question; ?></p>
+    <li><a href="/polls/<?php echo $poll->id; ?>"><?php echo $poll->question; ?></a></li>
 <?php
 }
+?>
+</ul>

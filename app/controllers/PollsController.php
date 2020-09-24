@@ -59,6 +59,28 @@ class PollsController extends ControllerBase
         //
     }
 
+	/**
+	 * Displays the poll
+	 *
+	 * @param string $id
+	 */
+	public function viewAction($id)
+	{
+		$poll = Polls::findFirstByid($id);
+		if (!$poll) {
+			$this->flash->error("poll was not found");
+
+			$this->dispatcher->forward([
+				'controller' => "polls",
+				'action' => 'index'
+			]);
+
+			return;
+		}
+
+		$this->view->poll = $poll;
+	}
+
     /**
      * Edits a poll
      *
