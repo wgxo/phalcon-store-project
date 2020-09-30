@@ -14,16 +14,16 @@
     <div class="form-group">
     <label for="fieldQuestion" class="col-sm-2 control-label">Question</label>
     <div class="col-sm-10">
-        <?php echo $this->tag->textField(["question", "size" => 30, "class" => "form-control", "id" => "fieldQuestion"]) ?>
+        <?php echo $this->tag::textField(["question", "size" => 30, "class" => "form-control", "id" => "fieldQuestion"]) ?>
     </div>
 </div>
 
 
-    <?php echo $this->tag->hiddenField("id") ?>
+    <?php echo $this->tag::hiddenField("id") ?>
 
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <?php echo $this->tag->submitButton(["Save", "class" => "btn btn-default"]) ?>
+            <?php echo $this->tag::submitButton(["Save", "class" => "btn btn-default"]) ?>
         </div>
     </div>
 </form>

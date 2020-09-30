@@ -2,7 +2,6 @@
 declare(strict_types=1);
 
 
-
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model;
 
@@ -26,12 +25,12 @@ class PollsController extends ControllerBase
         $parameters = Criteria::fromInput($this->di, 'Polls', $_GET)->getParams();
         $parameters['order'] = "id";
 
-        $paginator   = new Model(
+        $paginator = new Model(
             [
-                'model'      => 'Polls',
+                'model' => 'Polls',
                 'parameters' => $parameters,
-                'limit'      => 10,
-                'page'       => $numberPage,
+                'limit' => 10,
+                'page' => $numberPage,
             ]
         );
 
@@ -59,27 +58,35 @@ class PollsController extends ControllerBase
         //
     }
 
-	/**
-	 * Displays the poll
-	 *
-	 * @param string $id
-	 */
-	public function viewAction($id)
-	{
-		$poll = Polls::findFirstByid($id);
-		if (!$poll) {
-			$this->flash->error("poll was not found");
+    /**
+     * Displays the poll
+     *
+     * @param string $id
+     */
+    public function viewAction($id)
+    {
+        $poll = Polls::findFirstByid($id);
+        if (!$poll) {
+            $this->flash->error("poll was not found");
 
-			$this->dispatcher->forward([
-				'controller' => "polls",
-				'action' => 'index'
-			]);
+            $this->dispatcher->forward([
+                'controller' => "polls",
+                'action' => 'index'
+            ]);
 
-			return;
-		}
+            return;
+        }
 
-		$this->view->poll = $poll;
-	}
+        $options = PollsOptions::find([
+                'conditions' => "poll_id=:id:",
+                'bind' => [
+                    'id' => $poll->id
+                ]]
+        );
+
+        $this->view->poll = $poll;
+        $this->view->options = $options;
+    }
 
     /**
      * Edits a poll
@@ -103,8 +110,8 @@ class PollsController extends ControllerBase
 
             $this->view->id = $poll->id;
 
-            $this->tag->setDefault("id", $poll->id);
-            $this->tag->setDefault("question", $poll->question);
+            $this->tag::setDefault("id", $poll->id);
+            $this->tag::setDefault("question", $poll->question);
 
         }
     }
@@ -116,7 +123,7 @@ class PollsController extends ControllerBase
     {
         if (!$this->request->isPost()) {
             $this->dispatcher->forward([
-                'controller' => "polls",
+                'controller' => "index",
                 'action' => 'index'
             ]);
 
@@ -144,7 +151,10 @@ class PollsController extends ControllerBase
 
         $this->dispatcher->forward([
             'controller' => "polls",
-            'action' => 'index'
+            'action' => 'view',
+            'params' => [
+                'id' => $poll->id,
+            ]
         ]);
     }
 

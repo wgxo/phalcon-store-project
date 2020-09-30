@@ -30,3 +30,21 @@ $router->add(
     "Polls::view",
     ["GET"]
 );
+
+$router->add(
+    "/polls_options/{id:\d+}",
+    "PollsOptions::index",
+    ["GET"]
+);
+
+$router->add(
+    "/polls_options/{id:\d+}/new",
+    "PollsOptions::new",
+    ["GET"]
+);
+
+$router->add(
+    "/polls_options/vote/{id:\d+}",
+    "PollsOptions::vote",
+    ["GET"]
+);

@@ -1,0 +1,51 @@
+<?php
+/**
+ * @var \Phalcon\Mvc\View\Engine\Php $this
+ */
+?>
+
+<div class="row">
+    <nav>
+        <ul class="pager">
+            <li class="previous"><?php echo $this->tag::linkTo(["polls_options", "Back"]) ?></li>
+        </ul>
+    </nav>
+</div>
+
+<div class="page-header">
+    <h1>Edit polls_options</h1>
+</div>
+
+<?php echo $this->getContent(); ?>
+
+<form action="/polls_options/save" class="form-horizontal" method="post">
+    <div class="form-group">
+    <label for="fieldName" class="col-sm-2 control-label">Name</label>
+    <div class="col-sm-10">
+        <?php echo $this->tag::textField(["name", "size" => 30, "class" => "form-control", "id" => "fieldName"]) ?>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="fieldNumberVotes" class="col-sm-2 control-label">Number Of Votes</label>
+    <div class="col-sm-10">
+        <?php echo $this->tag::textField(["number_votes", "type" => "number", "class" => "form-control", "id" => "fieldNumberVotes"]) ?>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="fieldPollId" class="col-sm-2 control-label">Poll</label>
+    <div class="col-sm-10">
+        <?php echo $this->tag::textField(["poll_id", "type" => "number", "class" => "form-control", "id" => "fieldPollId"]) ?>
+    </div>
+</div>
+
+
+    <?php echo $this->tag::hiddenField("id") ?>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <?php echo $this->tag::submitButton(["Save", "class" => "btn btn-default"]) ?>
+        </div>
+    </div>
+</form>
