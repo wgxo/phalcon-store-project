@@ -77,15 +77,15 @@ class PollsController extends ControllerBase
             return;
         }
 
-        $options = PollsOptions::find([
-                'conditions' => "poll_id=:id:",
-                'bind' => [
-                    'id' => $poll->id
-                ]]
-        );
+//        $options = PollsOptions::find([
+//                'conditions' => "poll_id=:id:",
+//                'bind' => [
+//                    'id' => $poll->id
+//                ]]
+//        );
 
         $this->view->poll = $poll;
-        $this->view->options = $options;
+        $this->view->options = $poll->Options; // model hasMany alias
     }
 
     /**

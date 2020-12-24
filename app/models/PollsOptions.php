@@ -1,6 +1,8 @@
 <?php
 
-class PollsOptions extends \Phalcon\Mvc\Model
+use Phalcon\Di\DiInterface;
+
+class PollsOptions extends Phalcon\Mvc\Model
 {
 
     /**
@@ -32,9 +34,11 @@ class PollsOptions extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
+        $this->keepSnapshots(true);
         $this->setSchema("store");
         $this->setSource("polls_options");
         $this->belongsTo('poll_id', 'Polls', 'id', ['alias' => 'Polls']);
+        $this->addBehavior(new Blameable());
     }
 
     /**

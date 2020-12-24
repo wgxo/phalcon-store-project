@@ -1,6 +1,8 @@
 <?php
 
-class Polls extends \Phalcon\Mvc\Model
+use Phalcon\Di\DiInterface;
+
+class Polls extends Phalcon\Mvc\Model
 {
 
     /**
@@ -20,8 +22,19 @@ class Polls extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
+        $this->keepSnapshots(true);
         $this->setSchema("store");
         $this->setSource("polls");
+        $this->hasMany('id', 'PollsOptions', 'poll_id', ['alias' => 'Options']);
+        $this->addBehavior(
+            new Blameable(
+//                [
+//                    'userCallback' => function (DiInterface $di) {
+//                        return 'wgarcia';
+//                    },
+//                ]
+            )
+        );
     }
 
     /**

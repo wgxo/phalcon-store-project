@@ -1,22 +1,59 @@
 <?php
 /**
- * @var \Phalcon\Mvc\View\Engine\Php $this
+ * @var View $this
+ * @var array $polls
  */
+
+use Phalcon\Mvc\View\Engine\Php as View;
+
 ?>
 
-<div class="page-header">
-    <h1>Polls</h1>
-</div>
+    <div class="page-header">
+        <?php echo $this->tag::image(['/index/logo']); ?>
+    </div>
 
-<p>This is the list of polls</p>
+    <p>This is the list of polls</p>
 
-<ul>
-    <?php
-    /** @var Polls $poll */
-    foreach ($this->view->polls as $poll) {
-        ?>
-        <li><a href="/polls/<?php echo $poll->id; ?>"><?php echo $poll->question; ?></a></li>
-        <?php
+    <ul>
+        <?php foreach ($polls as /** @var Polls $poll */
+                       $poll) : ?>
+            <li><?php echo $this->tag::linkTo(['/polls/' . $poll->id, $poll->question]) ?></li>
+        <?php endforeach ?>
+    </ul>
+
+
+    <hr>
+
+<?php
+
+$aPCUIterator = new APCUIterator();
+
+echo sprintf('totalCount = %s<br/>', $aPCUIterator->getTotalCount());
+//echo sprintf('totalHits = %s<br/>', $aPCUIterator->getTotalHits()); // Not implemneted/available?
+echo sprintf('totalSize = %s<br/>', $aPCUIterator->getTotalSize());
+
+$aPCUIterator->rewind();
+do {
+    echo '----------------------------------<br/>';
+    echo sprintf('key = %s<br/>', $aPCUIterator->key());
+    echoCurrent($aPCUIterator->current());
+} while ($aPCUIterator->next() && $aPCUIterator->valid());
+
+function echoCurrent($current) {
+    if (!is_array($current)) {
+        echo $current;
+        return;
     }
-    ?>
-</ul>
+
+    echo sprintf('current - type = %s<br/>', $current['type']);
+    echo sprintf('current - key = %s<br/>', $current['key']);
+    echo sprintf('current - value = %s<br/>', is_array($current['value'])? implode(' ,', $current['value']) : $current['value']);
+    //echo sprintf('current - num_hits = %s<br/>', $current['num_hits']); // Not implemneted/available?
+    echo sprintf('current - mtime = %s<br/>', date("d-m-Y H:i:s", $current['mtime']));
+    echo sprintf('current - creation_time = %s<br/>', date("d-m-Y H:i:s", $current['creation_time']));
+    echo sprintf('current - deletion_time = %s<br/>', date("d-m-Y H:i:s", $current['deletion_time']));
+    echo sprintf('current - access_time = %s<br/>', date("d-m-Y H:i:s", $current['access_time']));
+    //echo sprintf('current - ref_count = %s<br/>', $current['ref_count']); // Not implemneted/available?
+    echo sprintf('current - mem_size = %s<br/>', $current['mem_size']);
+    //echo sprintf('current - ttl = %s<br/>', $current['ttl']); // Not implemneted/available?
+}
